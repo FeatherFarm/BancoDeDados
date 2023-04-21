@@ -18,6 +18,7 @@ CREATE TABLE empresa(
     telefone2 VARCHAR(15),
     site VARCHAR(100) NOT NULL
 );
+
 CREATE TABLE galpao(
 	idGalpao INT PRIMARY KEY auto_increment,
     localizacao VARCHAR(100),
@@ -32,15 +33,13 @@ CREATE TABLE sensor (
   fabricante VARCHAR(50),
   data_instalacao DATE,
   localizacao VARCHAR(100),
-  descricao VARCHAR(200),
-  fkEmpresa INT, FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+  estado VARCHAR(10), CONSTRAINT chkEstado CHECK (estado in('off', 'ligado', 'manutenção')),
   fkGalpao INT, FOREIGN KEY (fkGalpao) REFERENCES galpao(idGalpao)
 );
 
 
 CREATE TABLE dados_sensor (
-  id_dados INT PRIMARY KEY auto_increment,
-  data_hora DATETIME,
+  data_hora DATETIME PRIMARY KEY,
   temperatura DECIMAL(4,2),
   umidade DECIMAL(4,2), 
   fkSensor INT,FOREIGN KEY (fkSensor) REFERENCES sensor(id_sensor)
