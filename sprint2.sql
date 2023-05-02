@@ -117,6 +117,21 @@ INSERT INTO dados_sensor VALUES('2023-05-01 18:01', 20.1, 63.0, 26), ('2023-05-0
 ('2023-05-01 18:21', 19.5, 63.0, 26), ('2023-05-01 18:31', 19.9, 67.0, 26), ('2023-05-01 18:41', 20.6, 71.0, 26),
 ('2023-05-01 18:51', 21.8, 72.0, 26), ('2023-05-01 19:01', 22.1, 73.0, 26);
 
+ALTER TABLE empresa RENAME COLUMN site to siteEmpresa;
+
+SELECT * FROM empresa;
+SELECT * FROM login;
+SELECT * FROM galpao;
+SELECT * FROM sensor;
+SELECT * FROM dados_sensor;
+
+SELECT nomeEmpresa, idGalpao, qtdSensores FROM empresa JOIN galpao ON fkEmpresa = idEmpresa
+	JOIN sensor ON fkGalpao = idGalpao;
+
+SELECT SUM(qtdSensores) as 'Sensores instalados' FROM galpao;
+
+-- Media da temperatura
+SELECT SUM(temperatura) / count(temperatura) as 'Média' FROM dados_sensor WHERE fkSensor = 26;
 
 SELECT nomeEmpresa, idGalpao, modelo ,data_hora, temperatura, umidade FROM empresa JOIN galpao ON fkEmpresa = idEMpresa
 	JOIN sensor ON fkGalpao = idGalpao JOIN dados_sensor ON fkSensor = id_sensor
